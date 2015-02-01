@@ -54,6 +54,7 @@ game.BallEntity = me.AnimationSheet.extend({
     {
         this._super(me.AnimationSheet, 'update', [dt] );
 
+        this.pos.y++;
         return true;
     },
 });
@@ -69,7 +70,7 @@ game.BallManager = me.Entity.extend({
 
         var ball = new game.BallEntity(0, 0);
 
-        me.game.world.addChild(ball,0);
+        me.game.world.addChild(ball,1);
 
     },
 });
