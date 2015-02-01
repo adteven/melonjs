@@ -9,7 +9,8 @@ game.PlayScreen = me.ScreenObject.extend({
         // reset the score
         game.data.score = 0;
 
-        var background_sprite = new me.Sprite(0,0, {image: me.loader.getImage("background")});
+
+        var background_sprite = new me.Sprite(0,0, me.loader.getImage("background"));
 
         me.game.world.addChild(background_sprite, 0);
 
