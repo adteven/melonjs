@@ -40,7 +40,8 @@ game.PlayerEntity = me.Entity.extend({
 game.BallEntity = me.AnimationSheet.extend({
     init:function (x, y){
 
-        this._super(me.AnimationSheet,'init',[x, y , { image: me.loader.getImage("football"), framewidth: 145, frameheight: 110}]);
+        //this._super(me.AnimationSheet,'init',[x, y , { image: me.loader.getImage("football"), framewidth: 145, frameheight: 110}]);
+        this._super(me.AnimationSheet, 'init', [x, y, {image: me.loader.getImage("football"),spritewidth: 145,spriteheight: 110}]);
 
         this.addAnimation("go_ball",[0,1,2,3,4,5]);
 
