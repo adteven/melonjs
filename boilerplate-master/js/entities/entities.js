@@ -48,6 +48,8 @@ game.BallEntity = me.AnimationSheet.extend({
         this.setCurrentAnimation("go_ball");
 
         this.initialPos = this.pos.y;
+
+
     },
 
     update : function ( dt )
@@ -69,7 +71,7 @@ game.BallManager = me.Entity.extend({
         this._super(me.Entity, 'init', [0, 0, settings]);
 
         var ball = new game.BallEntity(0, 0);
-
+        ball.scale(0.5,0.5);
         me.game.world.addChild(ball,1);
 
     },
