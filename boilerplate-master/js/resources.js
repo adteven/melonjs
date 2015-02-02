@@ -33,6 +33,12 @@ game.resources = [
         src: "data/img/background/background.png"
      },
 
+     {
+        name: "gripe_run_right",
+        type: "image",
+        src: "data/img/sprite/gripe_run_right.png"
+     },
+
      //football sprite
      {
         name: "football",

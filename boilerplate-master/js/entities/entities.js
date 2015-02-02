@@ -9,6 +9,10 @@ game.PlayerEntity = me.Entity.extend({
     init:function (x, y, settings) {
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
+
+        //the.body.addShape(me.Line);
+
+        //this.renderable = new Sprite(10,10,me.loader.getImage("gripe_run_right"));
     },
 
     /**
@@ -49,6 +53,7 @@ game.BallEntity = me.AnimationSheet.extend({
 
         this.initialPos = this.pos.y;
 
+        //this.body.setVelocity(3, 15);
 
     },
 
@@ -57,6 +62,8 @@ game.BallEntity = me.AnimationSheet.extend({
         this._super(me.AnimationSheet, 'update', [dt] );
 
         this.pos.y++;
+
+        this.pos.x++;
         return true;
     },
 });
