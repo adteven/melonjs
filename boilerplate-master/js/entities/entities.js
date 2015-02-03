@@ -10,9 +10,9 @@ game.PlayerEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
 
-        //the.body.addShape(me.Line);
+        the.body.addShape(me.Line);
 
-        //this.renderable = new Sprite(10,10,me.loader.getImage("gripe_run_right"));
+        this.renderable = new Sprite(10,10,me.loader.getImage("gripe_run_right"));
     },
 
     /**
