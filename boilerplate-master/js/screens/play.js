@@ -18,7 +18,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
         me.game.world.addChild(ballmanager);
 
-        var mainplay = new game.PlayerEntity(0,0);
+        var mainplay = new game.PlayerEntity(0,0,{width:100,height:100});
 
         me.game.world.addChild(mainplay,1);
 
