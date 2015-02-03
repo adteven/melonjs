@@ -10,7 +10,7 @@ game.PlayerEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
 
-        //this.body.addShape(me.Line);
+        this.body.addShape(me.Rect);
 
         this.renderable = new me.Sprite(10,10,me.loader.getImage("gripe_run_right"));
     },
