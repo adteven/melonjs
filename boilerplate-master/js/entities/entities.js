@@ -10,7 +10,6 @@ game.PlayerEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
 
-<<<<<<< HEAD
         var shapes = new me.Rect(10,10,64,64);
 
         this.body.addShape(shapes);
@@ -24,11 +23,7 @@ game.PlayerEntity = me.Entity.extend({
         this.renderable.setCurrentAnimation("stand");
 
          me.input.registerPointerEvent('pointerdown', this, this.onMouseDown.bind(this));
-=======
-        the.body.addShape(me.Line);
 
-        this.renderable = new Sprite(10,10,me.loader.getImage("gripe_run_right"));
->>>>>>> origin/game
     },
 
         /**
@@ -68,7 +63,41 @@ game.PlayerEntity = me.Entity.extend({
      * update the entity
      */
     update : function (dt) {
-
+            if (me.input.isKeyPressed('left')) {
+      // flip the sprite on horizontal axis
+      this.renderable.flipX(true);
+      // update the entity velocity
+      this.body.vel.x -= this.body.accel.x * me.timer.tick;
+      // change to the walking animation
+      if (!this.renderable.isCurrentAnimation("walk")) {
+        this.renderable.setCurrentAnimation("walk");
+      }
+    } else if (me.input.isKeyPressed('right')) {
+      // unflip the sprite
+      this.renderable.flipX(false);
+      // update the entity velocity
+      this.body.vel.x += this.body.accel.x * me.timer.tick;
+      // change to the walking animation
+      if (!this.renderable.isCurrentAnimation("walk")) {
+        this.renderable.setCurrentAnimation("walk");
+      }
+    } else {
+      this.body.vel.x = 0;
+      // change to the standing animation
+      this.renderable.setCurrentAnimation("stand");
+    }
+   
+    if (me.input.isKeyPressed('jump')) {
+      // make sure we are not already jumping or falling
+      if (!this.body.jumping && !this.body.falling) {
+        // set current vel to the maximum defined value
+        // gravity will then do the rest
+        this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
+        // set the jumping flag
+        this.body.jumping = true;
+      }
+ 
+    }
         // apply physics to the body (this moves the entity)
         //this.body.update(dt);
         this.pos.y++;
