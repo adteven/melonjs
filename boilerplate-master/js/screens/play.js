@@ -18,10 +18,17 @@ game.PlayScreen = me.ScreenObject.extend({
 
         me.game.world.addChild(ballmanager);
 
-        var mainplay = new game.PlayerEntity(0,0,{width:100,height:100});
+       var settings = {
+                    image : "gripe_run_right",
+                    spritewidth : 64,
+                    height:64,
+                    width:64,
+                 };
+        var mainplay = new game.PlayerEntity(100,100,settings);
 
         me.game.world.addChild(mainplay,1);
 
+        console.log(mainplay.body.getShape());
         // add our HUD to the game world
         this.HUD = new game.HUD.Container();
         me.game.world.addChild(this.HUD);
