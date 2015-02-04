@@ -10,6 +10,7 @@ game.PlayerEntity = me.Entity.extend({
         // call the constructor
         this._super(me.Entity, 'init', [x, y , settings]);
 
+<<<<<<< HEAD
         var shapes = new me.Rect(10,10,64,64);
 
         this.body.addShape(shapes);
@@ -23,6 +24,11 @@ game.PlayerEntity = me.Entity.extend({
         this.renderable.setCurrentAnimation("stand");
 
          me.input.registerPointerEvent('pointerdown', this, this.onMouseDown.bind(this));
+=======
+        the.body.addShape(me.Line);
+
+        this.renderable = new Sprite(10,10,me.loader.getImage("gripe_run_right"));
+>>>>>>> origin/game
     },
 
         /**
