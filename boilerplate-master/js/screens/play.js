@@ -9,8 +9,11 @@ game.PlayScreen = me.ScreenObject.extend({
         // reset the score
         game.data.score = 0;
 
+        var lineshap = new me.Line(150,150,[300,300]);
 
         var background_sprite = new me.Sprite(0,0, me.loader.getImage("background"));
+
+        //background_sprite.addShape(lineshap);
 
         me.game.world.addChild(background_sprite, 0);
 
@@ -27,6 +30,10 @@ game.PlayScreen = me.ScreenObject.extend({
         var mainplay = new game.PlayerEntity(100,100,settings);
 
         me.game.world.addChild(mainplay,1);
+
+        var collision = new game.CollisionLine(0,300,300,300);
+
+        me.game.world.addChild(collision,1);
 
         console.log(mainplay.body.getShape());
         // add our HUD to the game world

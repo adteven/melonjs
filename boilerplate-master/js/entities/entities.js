@@ -99,8 +99,7 @@ game.PlayerEntity = me.Entity.extend({
  
     }
         // apply physics to the body (this moves the entity)
-        //this.body.update(dt);
-        this.pos.y++;
+        this.body.update(dt);
         // handle collisions against other shapes
         me.collision.check(this);
 
@@ -161,3 +160,28 @@ game.BallManager = me.Entity.extend({
 
     },
 });
+
+
+game.CollisionLine = me.Entity.extend({
+    init: function (sx, sy, ex, ey) {
+        var settings = {
+            width:64,
+            height:64
+        }
+        this._super(me.Entity, "init", [sx, sy, settings]);
+        this.body.addShape(new me.Line(0, 0, [new me.Vector2d(sx, sy), new me.Vector2d(ex, ey)]));
+        var _this = this;
+        this.renderable = new (me.Renderable.extend({
+            draw: function (renderer) {
+                  var color = renderer.getColor().toHex();
+                  renderer.setColor('#ff0000');
+                  var shape = _this.body.shapes[0];
+                  var x = shape.points[1].x - shape.points[0].x;
+                  var y = shape.points[1].y - shape.points[0].y;
+                  console.log("x=",x,"y=",y);
+                  renderer.strokeLine(0, 0, x, y);
+                  renderer.setColor(color);
+                        }
+        }));
+    }
+})
