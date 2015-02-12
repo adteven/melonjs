@@ -14,6 +14,8 @@ game.PlayerEntity = me.Entity.extend({
 
         this.body.addShape(shapes);
 
+        this.body.setVelocity(3, 15);
+
         //this.renderable = new me.Sprite(10,10,me.loader.getImage("gripe_run_right"));
                             // define a basic walking animation (using all frames)
         this.renderable.addAnimation("walk",  [0, 1, 2, 3, 4, 5, 6, 7]);
@@ -22,48 +24,23 @@ game.PlayerEntity = me.Entity.extend({
         // set the standing animation as default
         this.renderable.setCurrentAnimation("stand");
 
-         me.input.registerPointerEvent('pointerdown', this, this.onMouseDown.bind(this));
+        // me.input.registerPointerEvent('pointerdown', this, this.onMouseDown.bind(this));
 
     },
 
         /**
      * callback for mouse click
      */
-    onMouseDown : function() {
-        // if (this.isOut === true) {
-        //     this.isOut = false;
-        //     // set touch animation
-        //     this.setCurrentAnimation("touch", this.hide.bind(this));
-        //     // make it flicker
-        //     this.flicker(750);
-        //     // play ow FX
-        //     me.audio.play("ow");
-
-        //     // add some points
-        //     game.data.score += 100;
-
-        //     if (game.data.hiscore < game.data.score) {
-        //         // i could save direclty to me.save
-        //         // but that allows me to only have one
-        //         // simple HUD Score Object
-        //         game.data.hiscore = game.data.score;
-        //         // save to local storage
-        //         me.save.hiscore = game.data.hiscore;
-        //     }
-
-        //     // stop propagating the event
-        //     return false;
-
-        // };
-        this.pos.y++;
-    },
+    // onMouseDown : function() {
+    //     this.pos.y++;
+    // },
 
 
     /**
      * update the entity
      */
     update : function (dt) {
-            if (me.input.isKeyPressed('left')) {
+      if (me.input.isKeyPressed('left')) {
       // flip the sprite on horizontal axis
       this.renderable.flipX(true);
       // update the entity velocity
@@ -143,21 +120,61 @@ game.BallEntity = me.AnimationSheet.extend({
         this.pos.x++;
         return true;
     },
+
 });
+
+game.NewBAall = me.Entity.extend({
+    init:function(x, y){
+       var settings = {
+                image : "football",
+                spritewidth : 145,
+                spriteheight:110,
+                height:64,
+                width:64,
+             };
+        this._super(me.Entity, 'init',[0,0,settings]);
+            // store the current atlas information
+        this.renderable.scale(0.5,0.5);
+
+        this.body.setVelocity(3,3);
+
+        this.body.addShape(new me.Ellipse(60, 60, this.width, this.height));
+    },
+    update : function ( dt )
+    {
+               // apply physics to the body (this moves the entity)
+        this.body.update(dt);
+        // handle collisions against other shapes
+        me.collision.check(this);
+        this._super(me.Entity, 'update', [dt] );
+    },
+
+    onCollision : function (response, other) {
+        // Make all other objects solid
+        this.renderable.flicker(750);
+        response.overlapV.y = 0;
+        return true;
+    }
+}),
 
 game.BallManager = me.Entity.extend({
     init:function (x, y){
 
         var settings = {};
-        settings.width = 10;
-        settings.height = 10;
+        settings.width = 100;
+        settings.height = 100;
         // call the super constructor
         this._super(me.Entity, 'init', [0, 0, settings]);
 
-        var ball = new game.BallEntity(0, 0);
-        ball.scale(0.5,0.5);
-        me.game.world.addChild(ball,1);
+        //var ball = new game.BallEntity(0, 0);
+        var ball = new game.NewBAall(50,50);
 
+        me.game.world.addChild(ball);
+    },
+    update : function ( dt )
+    {
+        this.body.update(dt);
+        this._super(me.Entity, 'update', [dt] );
     },
 });
 

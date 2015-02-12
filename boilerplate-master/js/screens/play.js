@@ -17,7 +17,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
         me.game.world.addChild(background_sprite, 0);
 
-        var ballmanager = new game.BallManager(0,0);
+        var ballmanager = new game.BallManager(50,50);
 
         me.game.world.addChild(ballmanager);
 
@@ -30,6 +30,11 @@ game.PlayScreen = me.ScreenObject.extend({
         var mainplay = new game.PlayerEntity(100,100,settings);
 
         me.game.world.addChild(mainplay,1);
+
+        // var ball = new game.NewBAall(110,110);
+
+        // me.game.world.addChild(ball,1);
+
 
         var collision = new game.CollisionLine(0,300,300,300);
 
