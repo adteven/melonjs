@@ -28,13 +28,6 @@ game.PlayerEntity = me.Entity.extend({
 
     },
 
-        /**
-     * callback for mouse click
-     */
-    // onMouseDown : function() {
-    //     this.pos.y++;
-    // },
-
 
     /**
      * update the entity
@@ -43,6 +36,7 @@ game.PlayerEntity = me.Entity.extend({
       if (me.input.isKeyPressed('left')) {
       // flip the sprite on horizontal axis
       this.renderable.flipX(true);
+
       // update the entity velocity
       this.body.vel.x -= this.body.accel.x * me.timer.tick;
       // change to the walking animation
@@ -129,10 +123,10 @@ game.NewBAall = me.Entity.extend({
                 image : "football",
                 spritewidth : 145,
                 spriteheight:110,
-                height:64,
-                width:64,
+                height:55,
+                width:70,
              };
-        this._super(me.Entity, 'init',[0,0,settings]);
+        this._super(me.Entity, 'init',[x,y,settings]);
             // store the current atlas information
         this.renderable.scale(0.5,0.5);
 
@@ -142,11 +136,13 @@ game.NewBAall = me.Entity.extend({
     },
     update : function ( dt )
     {
-               // apply physics to the body (this moves the entity)
+
+        // apply physics to the body (this moves the entity)
         this.body.update(dt);
         // handle collisions against other shapes
         me.collision.check(this);
         this._super(me.Entity, 'update', [dt] );
+        return true;
     },
 
     onCollision : function (response, other) {
@@ -164,19 +160,31 @@ game.BallManager = me.Entity.extend({
         settings.width = 100;
         settings.height = 100;
         // call the super constructor
-        this._super(me.Entity, 'init', [0, 0, settings]);
+        this._super(me.Entity, 'init', [x, y, settings]);
 
-        //var ball = new game.BallEntity(0, 0);
-        var ball = new game.NewBAall(50,50);
+        //var ball = new game.BallEntity(0, 0);Math.floor(Math.random()*100+1);
 
-        me.game.world.addChild(ball);
+        me.timer.setInterval(this.CreateBall.bind(this),1000);
+        //var ball = new game.NewBAall(50,50);
+
+        //me.game.world.addChild(ball);
     },
+
+    CreateBall:function(){
+      var vax = Math.floor(Math.random()*480+1);
+      //var vay = Math.floor(Math.random()*100+1);
+      var ball = new game.NewBAall(vax,0);
+      console.log(vax);
+      me.game.world.addChild(ball);
+    },
+
     update : function ( dt )
     {
         this.body.update(dt);
         this._super(me.Entity, 'update', [dt] );
     },
 });
+
 
 
 game.CollisionLine = me.Entity.extend({
